@@ -1,0 +1,29 @@
+retinaface_detector:
+  provider: 'onnx-cpu'
+  nms_threshold: 0.4
+  vis_thres: 0.5
+  conf_threshold: 0.1
+  resolution: [null, null] #resolution: [640,480]
+  min_sizes: [[16, 32], [64, 128], [256, 512]]
+  steps: [8, 16, 32]
+  variance: [0.1, 0.2]
+  clip: False
+
+recognition_magface:
+#  provider: 'onnx-cpu'
+#  model: 'arcface_resnet50.onnx'
+  algorithm: 'magface'
+  provider: 'onnx-cpu'
+  model: 'magface.onnx'
+
+
+recognition_arcface:
+#  provider: 'onnx-cpu'
+#  model: 'arcface_resnet50.onnx'
+  algorithm: 'arcface'
+  provider: 'onnx-cpu'
+  model: 'arcface_resnet50.onnx'
+
+landmarks:
+  module: 'mediapipe'
+  provider: 'onnx-cpu'
