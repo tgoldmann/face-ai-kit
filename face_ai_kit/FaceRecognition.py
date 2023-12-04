@@ -194,7 +194,7 @@ class FaceRecognition:
         if face_image.shape[0] != face_image.shape[1]:
             face_image,_,_ = Transforms.add_square_padding(current_img = face_image)
         
-        self.recg.inference(face_image)
+        return self.recg.inference(face_image)
 
 
     def rotation(self, face_image1, face1_roi):

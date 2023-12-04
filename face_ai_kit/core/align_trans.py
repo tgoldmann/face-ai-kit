@@ -108,6 +108,8 @@ def warp_and_crop_face(src_img,
         min_y = int(np.min(source_roi[:, :, 1]))
         max_y = int(np.max(source_roi[:, :, 1]))
 
+
+
         # Calculate the center of the square
         center_x = int((min_x + max_x) / 2)
         center_y = int((min_y + max_y) / 2)
