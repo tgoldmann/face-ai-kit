@@ -33,5 +33,5 @@ setup(
     ],
     packages=["face_ai_kit"],
     include_package_data=True,
-    install_requires=["numpy"]
+    install_requires=["numpy", "cv2", "onnxruntime", "gdown", "confuse"]
 )

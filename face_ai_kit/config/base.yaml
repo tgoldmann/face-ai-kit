@@ -1,5 +1,9 @@
+lib:
+  version: 0.1.0
+  model_url: 'https://www.fit.vutbr.cz/~igoldmann/faceaikit'
 retinaface_detector:
   provider: 'onnx-cpu'
+  model: 'resnet_dynamic.onnx'
   nms_threshold: 0.4
   vis_thres: 0.5
   conf_threshold: 0.1
@@ -26,4 +30,5 @@ recognition_arcface:
 
 landmarks:
   module: 'mediapipe'
+  model: 'face_mesh_Nx3x192x192_post.onnx'
   provider: 'onnx-cpu'

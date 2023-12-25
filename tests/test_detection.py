@@ -4,13 +4,13 @@ from recognition_lib.FaceRecognition import FaceRecognition
 import cv2
 import os
 
-class TestMyLibrary(unittest.TestCase):
+class FaceAIKitTests(unittest.TestCase):
     def test_detection(self):
 
         script_dir = os.path.dirname(os.path.abspath(__file__))
 
         fce = FaceRecognition(recognition='arcface')
-        frame_1 = cv2.imread(script_dir + '/image1.jpeg')
+        frame_1 = cv2.imread(script_dir + '../examples/data/imga.jpg')
         #frame_2 = cv2.resize(frame_2, (640, 480))
  
         results1 = fce.face_detection(frame_1)
@@ -25,7 +25,7 @@ class TestMyLibrary(unittest.TestCase):
         script_dir = os.path.dirname(os.path.abspath(__file__))
 
         fce = FaceRecognition(recognition='arcface')
-        frame_1 = cv2.imread(script_dir + '/image1.jpeg')
+        frame_1 = cv2.imread(script_dir + '../examples/data/imga.jpg')
         #frame_2 = cv2.resize(frame_2, (640, 480))
  
         results1 = fce.face_detection(frame_1)
@@ -41,15 +41,13 @@ class TestMyLibrary(unittest.TestCase):
 
         fce = FaceRecognition(recognition='arcface')
 
-        frame_1 = cv2.imread('tests/image1.jpeg')
-
-        frame_2 = cv2.imread('tests/image0.jpeg')
+        frame_1 = cv2.imread('../examples/data/imga.jpg')
+        frame_2 = cv2.imread('../examples/data/imgb.jpg')
 
         results1 = fce.face_detection(frame_1, align='square')
 
         #fce.rotation(frame_1,face1_roi )
         results2 = fce.face_detection(frame_2)
-
 
         distance = fce.verify_rois(frame_1, results1[0]["roi"],frame_2, results2[0]["roi"])
 

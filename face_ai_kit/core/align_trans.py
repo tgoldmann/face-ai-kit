@@ -1,3 +1,9 @@
+"""
+Created on Mon Apr 24 15:43:29 2017
+@author: zhaoy, modified Tomas Goldmann
+
+"""
+
 import numpy as np
 import cv2
 #from .matlab_cp2tform import get_similarity_transform_for_cv2
@@ -136,7 +142,6 @@ def warp_and_crop_face(src_img,
 #    #print(('tfm.dtype:' + str(tfm.dtype))
 #    #print( tfm
     tfm = tform.params[0:2, :]
-
     face_img = cv2.warpAffine(src_img, tfm, (crop_size[0], crop_size[1]))
 
     return face_img, source_roi

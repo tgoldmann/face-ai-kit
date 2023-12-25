@@ -9,7 +9,7 @@ class FaceDetectorFactory:
         if provider in cls.providers:
             return cls.providers[provider](provider,model_path, cfg)
         else:
-            raise ValueError("Invalid provider")
+            raise ValueError(f"Invalid provider for retinaface ")
 
     @classmethod
     def register_provider(cls, provider_name, provider_class):
