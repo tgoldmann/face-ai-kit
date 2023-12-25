@@ -8,11 +8,12 @@ import numpy as np
 import os
 import onnxruntime as ort
 import confuse
+import gdown
+from urllib.request import urlretrieve
 
+from pathlib import Path
 from abc import ABCMeta, abstractmethod
 
-
-from .modules.retinaface_detector.RetinaFace import RetinaFace
 from .modules.retinaface_detector.RetinaFaceDetectorFactory import FaceDetectorFactory
 from .core.embedding_metrics import EmbeddingMetrics
 from .core.align_trans import  warp_and_crop_face
@@ -23,37 +24,45 @@ from .modules.n19_landmarks import N19LandmarksFactory
 from .modules.n19_rotation.N19Rotation import N19Rotation
 from .modules.mediapipe_landmarks import MediapipeLandmarksFactory
 
+config = confuse.Configuration('FaceAIKit', __name__)
 
-config = confuse.Configuration('FaceLib', __name__)
-
-config.set_file(os.path.dirname(os.path.abspath(__file__))+'/config/base.yaml')
+if not 'lib' in config:
+    config.set_file(os.path.dirname(os.path.abspath(__file__))+'/config/base.yaml')
 
 class FaceRecognition:
 
-    def __init__(self, detector="retinaface", recognition='arcface', config_file=None) -> None:
+    def __init__(self, recognition='arcface', config_file=None) -> None:
 
         if config_file != None:
             if os.path.exists(config_file):
-                config.set_file('subdirectory/local_config.yaml', base_for_paths=True)
+                config.set_file(config_file, base_for_paths=True)
             else:
-                raise Exception("Config files does not exist!")
+                raise RuntimeError("Config files does not exist!")
  
         script_dir = os.path.dirname(os.path.abspath(__file__))
-        try:
-            self.recg = RecognitionFactory.create(recognition, config['recognition_'+recognition]['provider'].get(), script_dir + '/models/' +config['recognition_'+recognition]['model'].get())
-        except:
-            raise Exception("ArcFaceFactory failed!")
+
+        self.home = str(os.getenv("FACEAIKITDIR", default=str(Path.home())))
+        self.model_folder = os.path.join(self.home, 'faceaikit')
+
+        self.check_and_download_models(self.model_folder, config, recognition)
 
         try:
-            self.det = FaceDetectorFactory.create_detector(config['retinaface_detector']['provider'].get(), os.path.dirname(__file__) +'/models/retinaface_detection/resnet_dynamic.onnx', config['retinaface_detector'].get())
+            model_path = os.path.join(self.model_folder,'recognition',config['recognition_'+recognition]['model'].get())
+            self.recg = RecognitionFactory.create(recognition, config['recognition_'+recognition]['provider'].get(), model_path)
+        except:
+            raise Exception("Face recognition library failed!")
+
+        try:
+            model_path = os.path.join(self.model_folder,'detector',config['retinaface_detector']['model'].get())
+            self.det = FaceDetectorFactory.create_detector(config['retinaface_detector']['provider'].get(), model_path, config['retinaface_detector'].get())
         except:
             raise Exception("RetinaFace factory failed!")
         try:
-
+            model_path = os.path.join(self.model_folder,'landmarks',config['landmarks']['model'].get())
             if config['landmarks']['module'].get()=='n19':
-                self.keypoints = N19LandmarksFactory.create('n19', config['landmarks']['provider'].get(), script_dir + '/models/m1.onnx')
+                self.keypoints = N19LandmarksFactory.create('n19', config['landmarks']['provider'].get(), model_path )
             elif config['landmarks']['module'].get()=='mediapipe':
-                self.keypoints = MediapipeLandmarksFactory.create('mediapipe', config['landmarks']['provider'].get(), script_dir + '/models/face_mesh_Nx3x192x192_post.onnx')
+                self.keypoints = MediapipeLandmarksFactory.create('mediapipe', config['landmarks']['provider'].get(), model_path )
 
         except:
             raise Exception("Factory of facial landmark detector failed!")
@@ -61,6 +70,32 @@ class FaceRecognition:
         self._rotation = N19Rotation()
         
         #keypoints = max(results, key=lambda x: x['score'])['keypoints']
+
+    def check_and_download_models(self, model_folder, config, recognition):
+        #face detection
+        url = config['lib']['model_url'].get()
+
+        face_detection_model = os.path.join(model_folder,'detector','resnet_dynamic.onnx' )
+        face_recognition_model = os.path.join(model_folder,'recognition',config['recognition_'+recognition]['model'].get() )
+        face_landmark_model = os.path.join(model_folder,'landmarks',config['landmarks']['model'].get() )
+
+        if os.path.isfile(face_detection_model) != True:
+            os.makedirs(os.path.join(model_folder,'detector'), exist_ok=True)
+            #urlretrieve(url+ '/detector/' + config['retinaface_detector']['model'].get(), face_detection_model)
+            gdown.download(url+ '/detector/' + config['retinaface_detector']['model'].get(), face_detection_model, quiet=False)
+
+        if os.path.isfile(face_recognition_model) != True:
+            os.makedirs(os.path.join(model_folder,'recognition'), exist_ok=True)
+            urlretrieve(url+ '/recognition/' + config['recognition_'+recognition]['model'].get(), face_recognition_model)
+
+            #gdown.download(url+ '/recognition/' + config['recognition_'+recognition]['model'].get(), face_recognition_model, quiet=False)
+
+        if os.path.isfile(face_landmark_model) != True:
+            os.makedirs(os.path.join(model_folder,'landmarks'), exist_ok=True)
+            urlretrieve(url+ '/landmarks/' + config['landmarks']['model'].get(), face_landmark_model)
+
+            #gdown.download(url+ '/landmarks/' + config['landmarks']['model'].get(), face_landmark_model, quiet=False)
+
 
     def landmarks(self, face_image1, face1_roi,):
         """

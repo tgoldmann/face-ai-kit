@@ -7,14 +7,11 @@ FaceAIKit is a Python library designed for face detection and recognition applic
 
 
 ## Key Features
-* Face Detection
-Quickly locate faces within images or video streams using efficient algorithms for detecting faces in various contexts and orientations.
+* Face Detection - Quickly locate faces within images or video streams using efficient algorithms for detecting faces in various contexts and orientations.
 
-* Facial Landmark Detection
-Identify key facial landmarks, such as eyes, nose, and mouth, to understand facial expressions and improve your recognition accuracy.
+* Facial Landmark Detection - Identify key facial landmarks, such as eyes, nose, and mouth, to understand facial expressions and improve your recognition accuracy.
 
-* Face Recognition
-Perform facial recognition to identify and verify individuals by comparing detected faces to a known database of individuals.
+* Face Recognition - Perform facial recognition to identify and verify individuals by comparing detected faces to a known database of individuals.
 
 Customizable: Fine-tune and customize the library's models to suit your specific needs and applications.
 
@@ -51,6 +48,8 @@ Trained model can be downloaded fom [GDriver](test).
 
 To get started with FaceAIKit, please refer to the documentation and examples provided in this repository. You'll find detailed guides and sample code to help you integrate the library into your projects quickly.
 
+
+Test images included in examples/data were obtained from https://vis-www.cs.umass.edu/fddb/.
 
 
 ### Init

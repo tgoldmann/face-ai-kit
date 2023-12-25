@@ -1,2 +1,4 @@
 numpy
 cv2
+gdown
+onnxruntime
