@@ -1,4 +1,5 @@
 numpy
-cv2
+opencv-python
 gdown
 onnxruntime
+scikit-image

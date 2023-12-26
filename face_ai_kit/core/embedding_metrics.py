@@ -1,3 +1,13 @@
+"""
+Description: Functions for calculating distance between vectors
+
+Author: Tomas Goldmann
+Date Created: Dec 26, 2023
+Date Modified: Dec 26, 2023
+License: MIT License
+"""
+
+
 import numpy as np
 
 

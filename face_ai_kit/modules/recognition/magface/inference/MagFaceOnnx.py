@@ -1,3 +1,12 @@
+"""
+Description: ArcFace - interface for CPU and GPU
+
+Author: Tomas Goldmann
+Date Created: Dec 26, 2023
+Date Modified: Dec 26, 2023
+License: MIT License
+"""
+
 
 from ..MagFace import MagFace
 

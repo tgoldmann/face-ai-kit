@@ -1,3 +1,11 @@
+"""
+Description: Factory to create face detection module.
+
+Author: Tomas Goldmann
+Date Created: Dec 26, 2023
+Date Modified: Dec 26, 2023
+License: MIT License
+"""
 
 
 

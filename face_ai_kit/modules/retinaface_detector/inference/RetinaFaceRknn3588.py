@@ -1,3 +1,13 @@
+"""
+Description: RetinaFace: Interface for rknn3588 - not implemented yet.
+
+Author: Tomas Goldmann
+Date Created: Dec 26, 2023
+Date Modified: Dec 26, 2023
+License: MIT License
+"""
+
+
 
 from ..RetinaFace import RetinaFace
 
