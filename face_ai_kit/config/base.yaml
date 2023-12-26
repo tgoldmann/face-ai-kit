@@ -1,6 +1,6 @@
 lib:
-  version: 0.1.0
-  model_url: 'https://www.fit.vutbr.cz/~igoldmann/faceaikit'
+  version: 0.1.1a3
+  model_url: 'https://github.com/tgoldmann/face-ai-kit/releases/download/pre-release'
 retinaface_detector:
   provider: 'onnx-cpu'
   model: 'resnet_dynamic.onnx'

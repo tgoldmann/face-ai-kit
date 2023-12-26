@@ -1,6 +1,6 @@
-# FaceAIKit: Face Detection and Recognition Library
+# FaceAIKit: Library for face detection and recognition
 
-FaceAIKit is a Python library designed for face detection and recognition application. With FaceAIKit, you can easily integrate state-of-the-art face detection and recognition capabilities into your applications and research projects. FaceAIKit offers a comprehensive solution to work with facial data. The library is designed for inference on various devices such as CPU (provided by onnx), GPU (provided by onnx), Rockchip RK3566 (RKNN framework), Rockchip RK3588 (RKNN framework).
+FaceAIKit is a Python library designed for face detection and recognition application. With FaceAIKit, you can easily integrate state-of-the-art face detection and recognition capabilities into your applications and research projects. The library is designed for inference on various devices such as CPU (provided by onnx), GPU (provided by onnx), Rockchip RK3566 (RKNN framework), Rockchip RK3588 (RKNN framework).
 
 <img src="doc/faceaikit.jpg" alt="drawing" width="200" style="margin-left: auto;margin-right: auto;  display: block;"/>
 

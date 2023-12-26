@@ -87,19 +87,19 @@ class FaceRecognition:
         if os.path.isfile(face_detection_model) != True:
             os.makedirs(os.path.join(model_folder,'detector'), exist_ok=True)
             #urlretrieve(url+ '/detector/' + config['retinaface_detector']['model'].get(), face_detection_model)
-            gdown.download(url+ '/detector/' + config['retinaface_detector']['model'].get(), face_detection_model, quiet=False)
+            gdown.download(url+ '/' + config['retinaface_detector']['model'].get(), face_detection_model, quiet=False)
 
         if os.path.isfile(face_recognition_model) != True:
             os.makedirs(os.path.join(model_folder,'recognition'), exist_ok=True)
             #urlretrieve(url+ '/recognition/' + config['recognition_'+recognition]['model'].get(), face_recognition_model)
 
-            gdown.download(url+ '/recognition/' + config['recognition_'+recognition]['model'].get(), face_recognition_model, quiet=False)
+            gdown.download(url+ '/' + config['recognition_'+recognition]['model'].get(), face_recognition_model, quiet=False)
 
         if os.path.isfile(face_landmark_model) != True:
             os.makedirs(os.path.join(model_folder,'landmarks'), exist_ok=True)
             #urlretrieve(url+ '/landmarks/' + config['landmarks']['model'].get(), face_landmark_model)
 
-            gdown.download(url+ '/landmarks/' + config['landmarks']['model'].get(), face_landmark_model, quiet=False)
+            gdown.download(url+ '/' + config['landmarks']['model'].get(), face_landmark_model, quiet=False)
 
 
     def landmarks(self, face_image1, face1_roi,):
