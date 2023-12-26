@@ -1,3 +1,12 @@
+"""
+Description: Functions to create squared ROI around face
+
+Author:  
+Date Created: Dec 26, 2023
+Date Modified: Dec 26, 2023
+License: MIT License
+"""
+
 import numpy as np
 import cv2
 

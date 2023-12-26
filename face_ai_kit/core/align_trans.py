@@ -134,7 +134,7 @@ def warp_and_crop_face(src_img,
                             [square_x2, square_y1],
                             [square_x2, square_y2],
                             [square_x1, square_y2]])
-        print(source_roi)
+        #print(source_roi)
                 
 
 #    #print('--->Transform matrix: '

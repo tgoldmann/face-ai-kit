@@ -7,7 +7,7 @@ FaceAIKit is a Python library designed for face detection and recognition applic
 
 
 ## Key Features
-* Face Detection - Quickly locat e faces within images or video streams using efficient algorithms for detecting faces in various contexts and orientations.
+* Face Detection - Quickly locate faces within images or video streams using efficient algorithms for detecting faces in various contexts and orientations.
 
 * Facial Landmark Detection - Identify key facial landmarks, such as eyes, nose, and mouth, to understand facial expressions.
 
@@ -16,6 +16,10 @@ FaceAIKit is a Python library designed for face detection and recognition applic
 * Estimation of head rotation - Not available yet
 
 Customizable: Fine-tune and customize the library's models to suit your specific needs and applications.
+
+
+## News
+* 27.12.2023 - FaceAIKit alpha version was introduced.
 
 ## Installation
 You can install FaceAIKit using pip:
@@ -81,12 +85,13 @@ Supported face align algorithms:
 
 * Square - 'square'
 * Keypoints - 'keypoints'
+* None - To use the output of the face detector directly
 
 
 Output of face_detection is array cotaints dict with face, roi, score.
 
 
-<img src="doc/example1.jpg" alt="drawing" width="400" style="margin-left: auto;margin-right: auto;  display: block;"/>
+<img src="doc/detection.png" alt="drawing" width="400" style="margin-left: auto;margin-right: auto;  display: block;"/>
 
 
 
@@ -114,8 +119,6 @@ lib.verify_batch(face_image1,face_image2)
 lib.verify_rois(face_image1, face_roi1,face_image2, face_roi2)
 ```
 
-<img src="doc/example2.jpg" alt="drawing" width="400" style="margin-left: auto;margin-right: auto;  display: block;"/>
-
  
 ### Face landmarks
 
@@ -138,7 +141,7 @@ Please note that the pre-trained models included in FaceAIKit are intended for r
 
 
 ## Contact
-If you have any questions, feedback, or inquiries about FaceAIKit, please don't hesitate to contact us at  tgoldmann@seznam.cz or igoldmann@fit.vutbr.cz.
+If you have any questions, feedback, or inquiries about FaceAIKit, please don't hesitate to contact us at tgoldmann@seznam.cz or igoldmann@fit.vutbr.cz.
 
 
 ## References

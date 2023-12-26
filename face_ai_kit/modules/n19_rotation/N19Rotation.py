@@ -1,3 +1,12 @@
+"""
+Description: Module for calculate head rotation based on landmarks 
+
+Author: Tomas Goldmann
+Date Created: Dec 26, 2023
+Date Modified: Dec 26, 2023
+License: MIT License
+"""
+
 import onnxruntime as ort
 import numpy as np
 import cv2

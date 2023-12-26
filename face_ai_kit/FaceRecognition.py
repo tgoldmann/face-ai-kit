@@ -1,7 +1,12 @@
-#!/usr/bin/env python3
-# Name: Modul for face recognition
-# Date: 2023
-# Author: T. Goldmann
+
+"""
+Description: The core file of this library.
+
+Author: Tomas Goldmann
+Date Created: Dec 26, 2023
+Date Modified: Dec 26, 2023
+License: MIT License
+"""
 
 import cv2
 import numpy as np
@@ -86,15 +91,15 @@ class FaceRecognition:
 
         if os.path.isfile(face_recognition_model) != True:
             os.makedirs(os.path.join(model_folder,'recognition'), exist_ok=True)
-            urlretrieve(url+ '/recognition/' + config['recognition_'+recognition]['model'].get(), face_recognition_model)
+            #urlretrieve(url+ '/recognition/' + config['recognition_'+recognition]['model'].get(), face_recognition_model)
 
-            #gdown.download(url+ '/recognition/' + config['recognition_'+recognition]['model'].get(), face_recognition_model, quiet=False)
+            gdown.download(url+ '/recognition/' + config['recognition_'+recognition]['model'].get(), face_recognition_model, quiet=False)
 
         if os.path.isfile(face_landmark_model) != True:
             os.makedirs(os.path.join(model_folder,'landmarks'), exist_ok=True)
-            urlretrieve(url+ '/landmarks/' + config['landmarks']['model'].get(), face_landmark_model)
+            #urlretrieve(url+ '/landmarks/' + config['landmarks']['model'].get(), face_landmark_model)
 
-            #gdown.download(url+ '/landmarks/' + config['landmarks']['model'].get(), face_landmark_model, quiet=False)
+            gdown.download(url+ '/landmarks/' + config['landmarks']['model'].get(), face_landmark_model, quiet=False)
 
 
     def landmarks(self, face_image1, face1_roi,):
@@ -210,20 +215,29 @@ class FaceRecognition:
         return distances
 
     def verify(self, face_image1, face_image2,  distance_metric="euclidean_l2"):
+        """
+        Verifies the similarity between two face image using facial embeddings and a specified distance metric.
 
+        Parameters:
+        - face_image1 (numpy.ndarray): The input face image .
+        - face_image2 (numpy.ndarray): The input face image .
+        - distance_metric (str): The distance metric to be used, currently supporting 'euclidean_l2' and 'euclidean'.
+
+        Returns:
+        - distance (float): The calculated distance between the facial embeddings of the two ROIs.
+        """
         if face_image1.shape[0] != face_image1.shape[1]:
             face_image1,_,_ = Transforms.add_square_padding(current_img = face_image1)
         if face_image2.shape[0] != face_image2.shape[1]:
             face_image2,_,_ = Transforms.add_square_padding(current_img = face_image2)
 
-        results1, face_img1 = self.det.interface(face_image1)
-        if results1==None or len(results1)==0:
-            return None
-        results2, face_img2 = self.det.interface(face_image2)
-        if results2==None or len(results2)==0:
-            return None
+        emb1 = self.recg.inference(face_image1)
+        emb2 = self.recg.inference(face_image2)
 
-        return self.verify_rois( face_img1, results1["roi"],  face_img2, results2["roi"])
+        #print(emb1, emb2)
+        distance = self.calculate_distance(emb1, emb2, distance_metric)
+        return distance
+
 
     def represent(self, face_image):
         if face_image.shape[0] != face_image.shape[1]:

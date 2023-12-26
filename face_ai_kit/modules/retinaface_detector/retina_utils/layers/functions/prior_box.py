@@ -1,3 +1,13 @@
+"""
+Description: 
+
+Author: Addapted from RetinaFace (https://github.com/biubug6/Pytorch_Retinaface
+Date Created: Dec 26, 2023
+Date Modified: Dec 26, 2023
+License: MIT License
+"""
+
+
 from itertools import product as product
 import numpy as np
 from math import ceil, floor

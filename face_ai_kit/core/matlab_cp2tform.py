@@ -1,3 +1,12 @@
+"""
+Description: 
+
+Author: https://github.com/BrightXiaoHan/FaceDetector/blob/master/mtcnn/utils/cp2tform.py
+Date Created: Dec 26, 2023
+Date Modified: Dec 26, 2023
+License: MIT License
+"""
+
 import numpy as np
 from numpy.linalg import inv, norm, lstsq
 from numpy.linalg import matrix_rank as rank

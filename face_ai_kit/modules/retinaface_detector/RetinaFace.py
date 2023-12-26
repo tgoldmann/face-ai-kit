@@ -1,6 +1,12 @@
-#!/usr/bin/env python3
-# Name: Onnx interface for face detection
-# Author: T. Goldmann
+"""
+Description: RetinaFace detector.
+
+Author: Tomas Goldmann
+Date Created: Dec 26, 2023
+Date Modified: Dec 26, 2023
+License: MIT License
+"""
+
 
 import logging as log
 import sys
@@ -93,8 +99,9 @@ class RetinaFace():
             kpts= [(b[5], b[6]), (b[7], b[8]),(b[9], b[10]),(b[11], b[12]),(b[13], b[14])]
             if align=='none':
                 roi = ((b[0], b[1]), (b[2], b[3]))
+                warped_face = img_raw[b[1]:b[3], b[0]:b[2]]
             elif align == 'square':
-                _, xyxy = Transforms.return_one(np.array([[b[0], b[1], b[2], b[3]]]), img_raw,  gain=1.2, pad=0, square=True, BGR=False)
+                warped_face, xyxy = Transforms.return_one(np.array([[b[0], b[1], b[2], b[3]]]), img_raw,  gain=1.2, pad=0, square=True, BGR=True)
                 xyxy = xyxy[0]
                 roi=((xyxy[0], xyxy[1]),(xyxy[2], xyxy[3]))
             elif align=='keypoints':
@@ -108,7 +115,7 @@ class RetinaFace():
 
             roi = (top_left, bottom_right)
 
-            output.append({'roi':roi, 'keypoints': kpts,'score': score})
+            output.append({'img': warped_face, 'roi':roi, 'keypoints': kpts,'score': score})
 
         return output, img_raw
 

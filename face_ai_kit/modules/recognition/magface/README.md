@@ -2,3 +2,5 @@
 
 ## Supported inference
 
+CPU, GPU (Nvidia)
+
