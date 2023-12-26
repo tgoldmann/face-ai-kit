@@ -13,6 +13,7 @@ FaceAIKit is a Python library designed for face detection and recognition applic
 
 * Face Recognition - Perform facial recognition to identify and verify individuals by comparing detected faces to a known database of individuals.
 
+* Estimation of head rotation - Not available yet
 Customizable: Fine-tune and customize the library's models to suit your specific needs and applications.
 
 ## Installation
@@ -35,7 +36,7 @@ Config file is split to following parts:
 
 ## Models
 
-Trained model can be downloaded fom [GDriver](test).
+Publicly available models are for CPU and GPU only. Models for other platforms are available on request. The trained model can be downloaded from [GDriver](test).
 
 | Model name | Restriction | Note |
 |------------|---------|------|
@@ -84,6 +85,10 @@ Supported face align algorithms:
 Output of face_detection is array cotaints dict with face, roi, score.
 
 
+<img src="doc/example1.jpg" alt="drawing" width="400" style="margin-left: auto;margin-right: auto;  display: block;"/>
+
+
+
 ### Face recognition
 
 Face recognition can be performed using several methods, each of which has a different use case.
@@ -108,11 +113,21 @@ lib.verify_batch(face_image1,face_image2)
 lib.verify_rois(face_image1, face_roi1,face_image2, face_roi2)
 ```
 
+<img src="doc/example2.jpg" alt="drawing" width="400" style="margin-left: auto;margin-right: auto;  display: block;"/>
 
+ 
+### Face landmarks
 
+Detection of face landmarks can be perfomed by using following code:
+
+```python
+lib.landmarks(face_image1, face_roi1,face_image2, face_roi2)
+```
+
+The library supports N19 landmark (our model) and MediaPipi landmark detectors. With N19, it is possible to detect 98 keypoints defined by WFLW annotation. On the other hand, the MediaPipe detector allows to detect 192 face keypoints.
 
 ## Contributions
-Contributions, bug reports, and feature requests are welcome! Feel free to submit issues  to improve FaceAIKit and make it even more powerful and user-friendly.
+Contributions, bug reports, and feature requests are welcome! Feel free to submit issues to improve FaceAIKit and make it even more powerful and user-friendly.
 
 ## License
 FaceAIKit is licensed under the MIT License, allowing you to use it in both open-source and commercial projects.
@@ -131,3 +146,7 @@ If you have any questions, feedback, or inquiries about FaceAIKit, please don't 
 * [ArcFace](https://arxiv.org/abs/1801.07698)
 
 * [MagFace](https://github.com/IrvingMeng/MagFace)- source of MagFace model converted to onnx
+
+* [WFLW](https://wywu.github.io/projects/LAB/WFLW.html) - Wu, Wayne and Qian, Chen and Yang, Shuo and Wang, Quan and Cai, Yici and Zhou, Qiang. Look at Boundary: A Boundary-Aware Face Alignment Algorithm. 2018
+
+* [Mediapipe](https://developers.google.com/mediapipe) - source of model for landmark detection
