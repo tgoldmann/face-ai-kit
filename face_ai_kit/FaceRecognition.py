@@ -25,9 +25,9 @@ from .modules.n19_rotation.N19Rotation import N19Rotation
 from .modules.mediapipe_landmarks import MediapipeLandmarksFactory
 
 config = confuse.Configuration('FaceAIKit', __name__)
-
+DEFAULT_CONFIG_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'config', 'base.yaml' )
 if not 'lib' in config:
-    config.set_file(os.path.dirname(os.path.abspath(__file__))+'/config/base.yaml')
+    config.set_file(DEFAULT_CONFIG_PATH)
 
 class FaceRecognition:
 
@@ -232,42 +232,81 @@ class FaceRecognition:
         return self.recg.inference(face_image)
 
 
-    def rotation(self, face_image1, face1_roi):
+
+    def rotation(self, face_img, roi=None, kpts=None):
         """
         Applies rotation adjustments to a face image based on facial landmarks within a specified region of interest (ROI).
 
         Parameters:
-        - face_image1 (numpy.ndarray): The input face image.
-        - face1_roi (tuple): A tuple representing the coordinates of the ROI in the format ((top-left-x, top-left-y), (bottom-right-x, bottom-right-y)).
+        - face_img (numpy.ndarray): The input face image.
+        - roi (tuple): A tuple representing the coordinates of the ROI in the format ((top-left-x, top-left-y), (bottom-right-x, bottom-right-y)).
+        - kpts (list)
 
         Returns:
         - None: If the specified facial landmarks module is not 'n19'.
         - Tuple (roll_angle, yaw_angle): Tuple containing the roll and yaw angles if the landmarks module is 'n19'.
         """
+        if roi != None:
+            if config['landmarks']['module'].get()=='n19':
+                kpts = self.keypoints.inference(face_img[roi[0][1]:roi[1][1],roi[0][0]:roi[1][0]])
+                print(kpts.shape)
 
-        if config['landmarks']['module'].get()=='n19':
-            kpts = self.keypoints.inference(face_image1[face1_roi[0][1]:face1_roi[1][1],face1_roi[0][0]:face1_roi[1][0]])
+                if len(kpts)==98:
+                    right_eye_corner = kpts[72] 
+                    left_eye_corner = kpts[60]
 
-            print(kpts.shape)
+                    roll_angle, roll_M, eyesCenter = self._rotation.get_roll(face_img,left_eye_corner,right_eye_corner)
+                    kpts_roll_norm = cv2.transform(np.array([kpts]), roll_M)[0]
+                    
+                    nose_tip_pt = kpts_roll_norm[51]
+                    lf_breadth_pt = kpts_roll_norm[0]
+                    rg_breadth_pt = kpts_roll_norm[32]
 
-            if len(kpts)==98:
-                right_eye_corner = kpts[72] 
-                left_eye_corner = kpts[60]
+                    yaw_angle, M = self._rotation.get_yaw(nose_tip_pt, lf_breadth_pt, rg_breadth_pt)
 
-                roll_angle, roll_M, eyesCenter = self._rotation.get_roll(face_image1,left_eye_corner,right_eye_corner)
-                kpts_roll_norm = cv2.transform(np.array([kpts]), roll_M)[0]
-                
-                nose_tip_pt = kpts[51]
-                lf_breadth_pt = kpts[0]
-                rg_breadth_pt = kpts[32]
+                    return yaw_angle, roll_angle
+                else:
+                    raise Exception("The nb of kpts must be 98 included in list, that are produced by n19 face landmark detector")
+            
+            elif config['landmarks']['module'].get()=='mediapipe':
+                kpts = self.keypoints.inference(face_img[roi[0][1]:roi[1][1],roi[0][0]:roi[1][0]])
 
-                yaw_angle, M = self._rotation.get_yaw(nose_tip_pt, lf_breadth_pt, rg_breadth_pt)
+                if len(kpts)==98:
+                    right_eye_corner = kpts[72] 
+                    left_eye_corner = kpts[60]
+
+                    roll_angle, roll_M, eyesCenter = self._rotation.get_roll(face_img,left_eye_corner,right_eye_corner)
+                    kpts_roll_norm = cv2.transform(np.array([kpts]), roll_M)[0]
+                    
+                    nose_tip_pt = kpts_roll_norm[51]
+                    lf_breadth_pt = kpts_roll_norm[0]
+                    rg_breadth_pt = kpts_roll_norm[32]
+
+                    yaw_angle, M = self._rotation.get_yaw(nose_tip_pt, lf_breadth_pt, rg_breadth_pt)
+
+                    return yaw_angle, roll_angle
+                else:
+                    raise Exception("The nb of kpts must be 98 included in list, that are produced by n19 face landmark detector")
+            
             else:
-                raise Exception
+                raise RuntimeError("Appropriate landmarks detector does not found")
+        if kpts != None:
+            if len(kpts)!=5:
+                raise Exception("The nb of kpts must be 5 included in list, that are produced by RetinaFace detector")
 
-                self.rotation.get_roll()
-        else:
-            return None
+            roll_angle, roll_M, eyesCenter = self._rotation.get_roll(face_img,kpts[0],kpts[1])
+            kpts_roll_norm = cv2.transform(np.array([kpts]), roll_M)[0]
+            
+            nose_tip_pt = kpts[2]
+            lf_breadth_pt = kpts[3]
+            rg_breadth_pt = kpts[4]
+
+            yaw_angle, M = self._rotation.get_yaw_5pt(nose_tip_pt, lf_breadth_pt, rg_breadth_pt)
+
+            return yaw_angle, roll_angle
+            
+        raise RuntimeError("Rotation need face ROI or face keypoints")
+        
 
 
 
