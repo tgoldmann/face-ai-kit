@@ -16,7 +16,7 @@ with open(path.join(HERE, 'README.md'), encoding='utf-8') as f:
 setup(
     name="face-ai-kit",
     version="0.1.0",
-    description="Face recognition library",
+    description="FaceAIKit is a Python library designed for face detection and recognition application.",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="",
