@@ -73,8 +73,7 @@ class RetinaFace():
         resize = 1.0
         scale = [img_to_detection.shape[1], img_to_detection.shape[0], img_to_detection.shape[1], img_to_detection.shape[0]]
         img = img_to_detection - (104, 117, 123)
-        img = img.transpose(2, 0, 1)
-        img = np.float32(np.expand_dims(img, 0))
+
 
         outputs = self.infer(img )
 
@@ -82,11 +81,8 @@ class RetinaFace():
         conf =  outputs[1]
         landms =  outputs[2]
 
-
-
         dets, landms = self.postprocessing.postprocessing(loc, conf, landms, img_raw.shape, scale, resize,0,0)
         dets = np.concatenate((dets, landms), axis=1)
-
         # --------------------------------------------------------------------
         output = list()
         for b in dets:
@@ -116,6 +112,5 @@ class RetinaFace():
             roi = (top_left, bottom_right)
 
             output.append({'img': warped_face, 'roi':roi, 'keypoints': kpts,'score': score})
-
         return output, img_raw
 

@@ -196,3 +196,4 @@ pyrightconfig.json
 
 
 face_ai_kit/models/*
+sensor/*

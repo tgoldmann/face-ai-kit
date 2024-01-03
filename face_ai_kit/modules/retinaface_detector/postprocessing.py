@@ -36,6 +36,8 @@ class RetinaPostProcessing():
             self.priors = priorbox.forward()
 
 
+
+
     def postprocessing(self, loc, conf, landms, shape, scale, resize, x_margin, y_margin):
 
         scale_w = self.size[1]
@@ -49,8 +51,6 @@ class RetinaPostProcessing():
             scale_h = shape[0]
 
         scale1 = [scale_w, scale_h, scale_w, scale_h, scale_w, scale_h, scale_w, scale_h,scale_w, scale_h]
-
-
         prior_data = self.priors
         boxes = decode(loc[0], prior_data, self.cfg['variance'])
 
