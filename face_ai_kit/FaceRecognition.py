@@ -114,10 +114,9 @@ class FaceRecognition:
         - landmarks (numpy.ndarray): An array containing the coordinates of facial landmarks after processing.
         """
         face_image1=face_image1[face1_roi[0][1]:face1_roi[1][1],face1_roi[0][0]:face1_roi[1][0]]
-        face_image1, pad_x, pad_y = Transforms.add_square_padding(current_img = face_image1)
 
-        landmarks = self.keypoints.inference(face_image1)
-        landmarks = landmarks + np.array([pad_x, pad_y,0])
+        face_image1, pad_x, pad_y = Transforms.add_square_padding(current_img = face_image1)
+        landmarks = self.keypoints.inference(face_image1, pad_x, pad_y)
 
         return landmarks
 

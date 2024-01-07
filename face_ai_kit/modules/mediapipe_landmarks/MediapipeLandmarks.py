@@ -31,7 +31,7 @@ class MediapipeLandmarks:
         
         pass
 
-    def inference(self, image):
+    def inference(self, image,pad_x, pad_y):
         if image.shape[0]!=image.shape[1]:
             raise Exception
         scale = self.size/image.shape[0]
@@ -43,9 +43,11 @@ class MediapipeLandmarks:
         face_img = np.asarray(face_img, dtype=np.float32).transpose(0,3,1,2)
 
         score, outputs1 = self.infer(face_img)
+        outputs1 = outputs1[0]/scale
+        outputs1 = outputs1 + np.array([pad_x, pad_y,0])
 
 
-        return outputs1[0]/scale
+        return outputs1
 
     def inference_batch(self, image_batch):
         image_batch = np.array(image_batch).astype(np.float32)/255.

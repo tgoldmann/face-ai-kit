@@ -14,21 +14,22 @@ retinaface_detector:
   clip: False
 
 recognition_magface:
-#  provider: 'onnx-cpu'
-#  model: 'arcface_resnet50.onnx'
   algorithm: 'magface'
   provider: 'onnx-cpu'
   model: 'magface.onnx'
 
 
 recognition_arcface:
-#  provider: 'onnx-cpu'
-#  model: 'arcface_resnet50.onnx'
   algorithm: 'arcface'
   provider: 'onnx-cpu'
   model: 'arcface_resnet50.onnx'
 
 landmarks:
-  module: 'mediapipe'
-  model: 'face_mesh_Nx3x192x192_post.onnx'
+  #Mediapipe
+  #module: 'mediapipe'
+  #model: 'face_mesh_Nx3x192x192_post.onnx'
+
+  #N19
+  module: 'n19'
+  model: 'm1.onnx'
   provider: 'onnx-cpu'

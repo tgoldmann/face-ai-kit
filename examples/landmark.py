@@ -38,4 +38,4 @@ coordinates = face_lib.landmarks(image, face1_roi)
 draw_circles_on_image(image, coordinates,face1_roi[0][0],face1_roi[0][1])
 cv2.imshow("Image2", image)
 cv2.waitKey(0)
-
+    

@@ -3,3 +3,4 @@ opencv-python
 gdown
 onnxruntime
 scikit-image
+confuse

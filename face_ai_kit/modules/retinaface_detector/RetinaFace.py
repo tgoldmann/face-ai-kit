@@ -97,7 +97,8 @@ class RetinaFace():
                 roi = ((b[0], b[1]), (b[2], b[3]))
                 warped_face = img_raw[b[1]:b[3], b[0]:b[2]]
             elif align == 'square':
-                warped_face, xyxy = Transforms.return_one(np.array([[b[0], b[1], b[2], b[3]]]), img_raw,  gain=1.2, pad=0, square=True, BGR=True)
+                #1.2
+                warped_face, xyxy = Transforms.return_one(np.array([[b[0], b[1], b[2], b[3]]]), img_raw,  gain=1.09, pad=0, square=True, BGR=True)
                 xyxy = xyxy[0]
                 roi=((xyxy[0], xyxy[1]),(xyxy[2], xyxy[3]))
             elif align=='keypoints':
