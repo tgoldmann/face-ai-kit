@@ -72,6 +72,13 @@ Supported face recognition algorithms:
 lib = FaceRecognition(recognition='arcface')
 ```
 
+To use our config file, use the config_file argument with path to a config file with the same structure as presented in face_ai_kit/config/base.yaml.
+
+```python
+lib = FaceRecognition(recognition='arcface', config_file='config/base.yaml')
+```
+
+
 ### Face detection
 
 Face detection is performed by calling the face_detection method. The function expects a NumPy image or a path to an image as an input parameter. In addition to this argument, the face alignment method can be set using the align parameter.
@@ -129,6 +136,8 @@ lib.landmarks(face_image1, face_roi1,face_image2, face_roi2)
 ```
 
 The library supports N19 landmark (our model) and MediaPipi landmark detectors. With N19, it is possible to detect 98 keypoints defined by WFLW annotation. On the other hand, the MediaPipe detector allows to detect 192 face keypoints.
+
+The model for N19 will be change to aother model from N19 series in the near future.
 
 ## Contributions
 Contributions, bug reports, and feature requests are welcome! Feel free to submit issues to improve FaceAIKit and make it even more powerful and user-friendly.

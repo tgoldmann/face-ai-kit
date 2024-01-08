@@ -7,6 +7,8 @@ Date Modified: Dec 26, 2023
 License: MIT License
 """
 
+import importlib
+
 
 class MediapipeLandmarksFactory:
     providers = {}
@@ -15,7 +17,9 @@ class MediapipeLandmarksFactory:
     def create(cls, algorithm, provider, model_path):
 
         if provider in cls.providers[algorithm]:
-            return cls.providers[algorithm][provider](provider,model_path)
+            module = importlib.import_module('.inference.' +cls.providers[algorithm][provider], 'face_ai_kit.modules.mediapipe_landmarks')
+            module_class = getattr(module, cls.providers[algorithm][provider])
+            return module_class(provider,model_path)
         else:
             raise ValueError("Invalid provider")
 
