@@ -1,0 +1,1 @@
+* 0.1.2a0 - Factories to create module with specified interface have been changed to use lazy loading.
