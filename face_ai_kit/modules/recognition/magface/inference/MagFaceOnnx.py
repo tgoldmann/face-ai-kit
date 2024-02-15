@@ -16,7 +16,6 @@ class MagFaceOnnx(MagFace):
 
     def __init__(self, inf, model_path) -> None:
         super().__init__(inf, model_path)
-
         providers = list()
         if inf=='onnx-cpu':
             providers = ['CPUExecutionProvider']

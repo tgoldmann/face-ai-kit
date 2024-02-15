@@ -54,8 +54,8 @@ class FaceRecognition:
         try:
             model_path = os.path.join(self.model_folder,'recognition',config['recognition_'+recognition]['model'].get())
             self.recg = RecognitionFactory.create(recognition, config['recognition_'+recognition]['provider'].get(), model_path)
-        except:
-            raise Exception("Face recognition library failed!")
+        except Exception as error:
+            raise Exception("Face recognition library failed!", error)
 
         try:
             model_path = os.path.join(self.model_folder,'detector',config['retinaface_detector']['model'].get())

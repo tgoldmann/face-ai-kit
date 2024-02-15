@@ -20,7 +20,7 @@ recognition_magface:
 
 
 recognition_magface_cwh:
-  algorithm: 'magface_cwh'
+  algorithm: 'recognition_magface_cwh'
   provider: 'onnx-cpu'
   model: 'magface_iresnet100_cwh.onnx'
 

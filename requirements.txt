@@ -2,5 +2,6 @@ numpy
 opencv-python
 gdown
 onnxruntime
+onnxruntime-gpu
 scikit-image
 confuse

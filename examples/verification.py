@@ -19,7 +19,7 @@ sys.path.append('..')
 from face_ai_kit.FaceRecognition import FaceRecognition
 
 #1) Load library
-face_lib = FaceRecognition(recognition='magface_cwh')
+face_lib = FaceRecognition(recognition='arcface')
 
 #2) Load images
 
