@@ -91,10 +91,10 @@ def warp_and_crop_face(src_img,
         raise FaceWarpException(
             'facial_pts and reference_pts must have the same shape')
 
-    if align_type is 'cv2_affine':
+    if align_type == 'cv2_affine':
         tfm = cv2.getAffineTransform(src_pts[0:3], ref_pts[0:3])
 #        #print(('cv2.getAffineTransform() returns tfm=\n' + str(tfm))
-    elif align_type is 'affine':
+    elif align_type == 'affine':
         tfm = get_affine_transform_matrix(src_pts, ref_pts)
 #        #print(('get_affine_transform_matrix() returns tfm=\n' + str(tfm))
     else:

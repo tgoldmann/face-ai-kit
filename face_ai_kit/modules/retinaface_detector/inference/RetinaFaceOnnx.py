@@ -9,7 +9,15 @@ class RetinaFaceOnnx(RetinaFace):
     def __init__(self, inference, model_path, cfg_det) -> None:
         super().__init__(inference, model_path, cfg_det)
 
-        self.session = ort.InferenceSession(model_path, providers=[ 'CUDAExecutionProvider'])
+        providers = list()
+        if inference=='onnx-cpu':
+            providers = ['CPUExecutionProvider']
+        elif inference=='onnx-gpu':
+            providers = ['CUDAExecutionProvider']
+        else:
+            raise  RuntimeError("Face recognition: Unkown provider")
+
+        self.session = ort.InferenceSession(model_path, providers=providers)
         
     def infer(self, img):
         img = img.transpose(2, 0, 1)
