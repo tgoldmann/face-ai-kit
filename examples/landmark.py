@@ -4,7 +4,7 @@ Example: Face landmarks detection
 
 Author: Tomas Goldmann
 Date Created: Dec 26, 2023
-Date Modified: Dec 26, 2023
+Date Modified: Jun 17, 2024
 License: MIT License
 """
 
@@ -12,8 +12,6 @@ License: MIT License
 import cv2
 import sys
 
-
-sys.path.append('..')
 from face_ai_kit.FaceRecognition import FaceRecognition
 
 

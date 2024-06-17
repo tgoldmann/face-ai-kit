@@ -4,7 +4,7 @@ Description: The core file of this library.
 
 Author: Tomas Goldmann
 Date Created: Dec 26, 2023
-Date Modified: Dec 26, 2023
+Date Modified: Jun 17, 2024
 License: MIT License
 """
 
@@ -46,10 +46,14 @@ class FaceRecognition:
  
         script_dir = os.path.dirname(os.path.abspath(__file__))
 
-        self.home = str(os.getenv("FACEAIKITDIR", default=str(Path.home())))
-        self.model_folder = os.path.join(self.home, 'faceaikit')
-
-        self.check_and_download_models(self.model_folder, config, recognition)
+        print(config['lib'].keys())
+        if 'local_model_path' in config['lib'].keys():
+            self.model_folder = config['lib']['local_model_path'].get()
+            print("Tu")
+        else:
+            self.home = str(os.getenv("FACEAIKITDIR", default=str(Path.home())))
+            self.model_folder = os.path.join(self.home, 'faceaikit')
+            self.check_and_download_models(self.model_folder, config, recognition)
 
         try:
             model_path = os.path.join(self.model_folder,'recognition',config['recognition_'+recognition]['model'].get())

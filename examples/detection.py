@@ -11,7 +11,6 @@ License: MIT License
 import cv2
 import sys
 
-
 from face_ai_kit.FaceRecognition import FaceRecognition
 
 

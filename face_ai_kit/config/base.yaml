@@ -1,6 +1,7 @@
 lib:
-  version: 0.1.1a3
+  version: '0.1.3'
   model_url: 'https://github.com/tgoldmann/face-ai-kit/releases/download/pre-release'
+  #local_model_path: '' # This option uses the local path to the model and disables downloading from Github.
 retinaface_detector:
   provider: 'onnx-cpu'
   model: 'resnet_dynamic.onnx'

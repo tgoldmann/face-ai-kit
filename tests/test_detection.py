@@ -1,5 +1,9 @@
 import unittest
-from recognition_lib.FaceRecognition import FaceRecognition
+import sys
+
+sys.path.append('..')
+from face_ai_kit.FaceRecognition import FaceRecognition
+
 
 import cv2
 import os
